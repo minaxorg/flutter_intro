@@ -13,9 +13,10 @@ class _FutureGuidePageState extends State<FutureGuidePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        bool? isOpen = Intro.of(context)?.status.isOpen;
-        if (isOpen == true) {
-          Intro.of(context)?.dispose();
+        Intro? intro = Intro.of(context);
+
+        if (intro?.status.isOpen == true) {
+          intro?.dispose();
           return false;
         }
         return true;
@@ -37,9 +38,9 @@ class _FutureGuidePageState extends State<FutureGuidePage> {
                     children: [
                       SizedBox(
                         key: key,
-                        width: 100,
+                        width: 50,
                         child: const Placeholder(
-                          fallbackHeight: 100,
+                          fallbackHeight: 50,
                         ),
                       ),
                     ],
@@ -65,12 +66,17 @@ class _FutureGuidePageState extends State<FutureGuidePage> {
                         overlayBuilder: (_) {
                           return Container(
                             color: Colors.red,
-                            child: const Text('hello world'),
+                            child: const Placeholder(
+                              fallbackHeight: 100,
+                              fallbackWidth: 100,
+                            ),
                           );
                         },
-                        builder: (context, key) => Text(
-                          'I am render delay',
+                        builder: (context, key) => SizedBox(
+                          width: 50,
+                          height: 50,
                           key: key,
+                          child: const Placeholder(),
                         ),
                       );
                     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_intro/flutter_intro.dart';
 import 'package:intro/future_guide_page.dart';
+import 'package:intro/simple_use.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,14 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Intro(
-      child: MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: const StartPage(),
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      home: const StartPage(),
     );
   }
 }
@@ -37,12 +36,29 @@ class StartPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => Intro(
+                      buttonTextBuilder: (order) =>
+                          order == 2 ? 'Custom Button Text' : 'Next',
+                      child: const SimpleUse(),
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Simple Use'),
+            ),
+            ElevatedButton(
               child: const Text('Work with FutureBuilder'),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => const FutureGuidePage(),
+                    builder: (BuildContext context) => Intro(
+                      child: const FutureGuidePage(),
+                    ),
                   ),
                 );
               },

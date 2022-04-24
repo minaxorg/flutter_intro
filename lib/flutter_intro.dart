@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 part 'delay_rendered_widget.dart';
 part 'flutter_intro_exception.dart';
+part 'intro_button.dart';
 part 'intro_status.dart';
 part 'intro_step_builder.dart';
 part 'step_widget_builder.dart';
@@ -39,9 +40,11 @@ class Intro extends InheritedWidget {
 
   /// No animation
   final bool noAnimation;
-  // Click on whether the mask is allowed to be closed.
+
+  /// Click on whether the mask is allowed to be closed.
   final bool maskClosable;
 
+  /// [order] order
   final String Function(
     int order,
   )? buttonTextBuilder;
@@ -68,13 +71,13 @@ class Intro extends InheritedWidget {
       return _currentIntroStepBuilder;
     }
     _introStepBuilderList.sort((a, b) => a.order - b.order);
-    final key = _introStepBuilderList.cast<IntroStepBuilder?>().firstWhere(
-          (e) => !_finishedIntroStepBuilderList.contains(e),
-          orElse: () => null,
-        );
-    print(key);
-    _currentIntroStepBuilder = key;
-    return key;
+    final introStepBuilder =
+        _introStepBuilderList.cast<IntroStepBuilder?>().firstWhere(
+              (e) => !_finishedIntroStepBuilderList.contains(e),
+              orElse: () => null,
+            );
+    _currentIntroStepBuilder = introStepBuilder;
+    return introStepBuilder;
   }
 
   Widget _widgetBuilder({
@@ -207,7 +210,7 @@ class Intro extends InheritedWidget {
       _overlayWidget = Stack(
         children: [
           Positioned(
-            child: Container(
+            child: SizedBox(
               width: position['width'],
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -226,45 +229,13 @@ class Intro extends InheritedWidget {
                   SizedBox(
                     height: 12,
                   ),
-                  SizedBox(
-                    height: 28,
-                    child: OutlinedButton(
-                      style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                          Colors.white,
-                        ),
-                        overlayColor: MaterialStateProperty.all<Color>(
-                          Colors.white.withOpacity(0.1),
-                        ),
-                        side: MaterialStateProperty.all<BorderSide>(
-                          BorderSide(
-                            color: Colors.white,
-                          ),
-                        ),
-                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                          EdgeInsets.symmetric(
-                            vertical: 0,
-                            horizontal: 8,
-                          ),
-                        ),
-                        shape: MaterialStateProperty.all<OutlinedBorder>(
-                          StadiumBorder(),
-                        ),
-                      ),
-                      onPressed: () {
-                        _render();
-                      },
-                      child: Text(
-                        buttonTextBuilder == null
-                            ? 'Next'
-                            : buttonTextBuilder!(
-                                introStepBuilder.order,
-                              ),
-                        style: TextStyle(
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
+                  IntroButton(
+                    text: buttonTextBuilder == null
+                        ? 'Next'
+                        : buttonTextBuilder!(introStepBuilder.order),
+                    onPressed: () {
+                      _render();
+                    },
                   ),
                 ],
               ),
@@ -277,6 +248,7 @@ class Intro extends InheritedWidget {
         ],
       );
     }
+
     _finishedIntroStepBuilderList.add(introStepBuilder);
 
     if (_overlayEntry == null) {
@@ -356,6 +328,7 @@ class Intro extends InheritedWidget {
   }
 
   void start() {
+    dispose();
     _render();
   }
 
