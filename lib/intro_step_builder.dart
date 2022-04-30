@@ -6,8 +6,6 @@ class IntroStepBuilder extends StatefulWidget {
     GlobalKey key,
   ) builder;
 
-  final GlobalKey _key = GlobalKey();
-
   ///Set the running order, the smaller the number, the first
   final int order;
 
@@ -27,6 +25,9 @@ class IntroStepBuilder extends StatefulWidget {
 
   final String? text;
 
+  /// When widget loaded (means the key is add to context)
+  final VoidCallback? onWidgetLoad;
+
   IntroStepBuilder({
     Key? key,
     required this.order,
@@ -36,8 +37,11 @@ class IntroStepBuilder extends StatefulWidget {
     this.borderRadius,
     this.onHighlightWidgetTap,
     this.padding,
+    this.onWidgetLoad,
   })  : assert(text != null || overlayBuilder != null),
         super(key: key);
+
+  GlobalKey get _key => GlobalObjectKey(order);
 
   @override
   State<IntroStepBuilder> createState() => _IntroStepBuilderState();
@@ -50,15 +54,18 @@ class IntroStepBuilder extends StatefulWidget {
 
 class _IntroStepBuilderState extends State<IntroStepBuilder> {
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    Intro? flutterIntro = Intro.of(context);
-
-    if (flutterIntro != null &&
-        !flutterIntro._introStepBuilderList.contains(widget)) {
-      flutterIntro._introStepBuilderList.add(widget);
-    }
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      Intro? flutterIntro = Intro.of(context);
+      if (flutterIntro != null &&
+          !flutterIntro._introStepBuilderList.contains(widget)) {
+        flutterIntro._introStepBuilderList.add(widget);
+        if (widget.onWidgetLoad != null) {
+          widget.onWidgetLoad!();
+        }
+      }
+    });
   }
 
   @override

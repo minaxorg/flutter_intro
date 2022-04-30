@@ -64,6 +64,9 @@ class Intro extends InheritedWidget {
 
   IntroStatus get status => IntroStatus(isOpen: _overlayEntry != null);
 
+  bool get hasNextStep =>
+      _introStepBuilderList.length > _finishedIntroStepBuilderList.length;
+
   IntroStepBuilder? _getNextIntroStepBuilder({
     bool isUpdate = false,
   }) {
@@ -147,7 +150,8 @@ class Intro extends InheritedWidget {
     if (introStepBuilder._key.currentContext == null) {
       throw FlutterIntroException(
         'The current context is null, because there is no widget in the tree that matches this global key.'
-        ' Please check whether the key in IntroStepBuilder(order: ${introStepBuilder.order}) has forgotten to bind.',
+        ' Please check whether the key in IntroStepBuilder(order: ${introStepBuilder.order}) has forgotten to bind.'
+        ' If you are already bound, it means you have encountered a bug, please let me know.',
       );
     }
 
@@ -174,6 +178,10 @@ class Intro extends InheritedWidget {
       offset: _widgetOffset,
     );
 
+    if (!_finishedIntroStepBuilderList.contains(introStepBuilder)) {
+      _finishedIntroStepBuilderList.add(introStepBuilder);
+    }
+
     if (introStepBuilder.overlayBuilder != null) {
       _overlayWidget = Stack(
         children: [
@@ -181,14 +189,16 @@ class Intro extends InheritedWidget {
             child: SizedBox(
               child: introStepBuilder.overlayBuilder!(
                 StepWidgetParams(
-                  onNext: () {
-                    //
-                  },
+                  onNext: hasNextStep
+                      ? () {
+                          _render();
+                        }
+                      : null,
                   onPrev: () {
                     //
                   },
                   onFinish: () {
-                    //
+                    _onFinish();
                   },
                   screenSize: _screenSize,
                   size: _widgetSize,
@@ -249,13 +259,17 @@ class Intro extends InheritedWidget {
       );
     }
 
-    _finishedIntroStepBuilderList.add(introStepBuilder);
-
     if (_overlayEntry == null) {
       _createOverlay();
     } else {
       _overlayEntry!.markNeedsBuild();
     }
+  }
+
+  void refresh() {
+    _render(
+      isUpdate: true,
+    );
   }
 
   void _createOverlay() {

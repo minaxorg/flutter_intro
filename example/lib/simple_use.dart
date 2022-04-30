@@ -17,7 +17,7 @@ class SimpleUse extends StatelessWidget {
             child: Column(
               children: [
                 IntroStepBuilder(
-                  order: 1,
+                  order: 2,
                   text:
                       'Simple use IntroStepBuilder to include widget that need to be guide.',
                   builder: (context, key) => Text(
@@ -29,7 +29,7 @@ class SimpleUse extends StatelessWidget {
                   height: 16,
                 ),
                 IntroStepBuilder(
-                  order: 2,
+                  order: 3,
                   text:
                       'If you need more customization, please see other examples.',
                   builder: (context, key) => Text(
@@ -41,13 +41,19 @@ class SimpleUse extends StatelessWidget {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(
-            Icons.play_arrow,
+        floatingActionButton: IntroStepBuilder(
+          order: 1,
+          text: 'OK, let\'s start.',
+          borderRadius: BorderRadius.circular(64),
+          builder: (context, key) => FloatingActionButton(
+            key: key,
+            child: const Icon(
+              Icons.play_arrow,
+            ),
+            onPressed: () {
+              Intro.of(context)?.start();
+            },
           ),
-          onPressed: () {
-            Intro.of(context)?.start();
-          },
         ),
       ),
       onWillPop: () async {

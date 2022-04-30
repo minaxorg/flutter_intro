@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_intro/flutter_intro.dart';
-import 'package:intro/future_guide_page.dart';
+import 'package:intro/advanced_guide_page.dart';
 import 'package:intro/simple_use.dart';
 
 void main() {
@@ -42,7 +42,7 @@ class StartPage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (BuildContext context) => Intro(
                       buttonTextBuilder: (order) =>
-                          order == 2 ? 'Custom Button Text' : 'Next',
+                          order == 3 ? 'Custom Button Text' : 'Next',
                       child: const SimpleUse(),
                     ),
                   ),
@@ -51,13 +51,13 @@ class StartPage extends StatelessWidget {
               child: const Text('Simple Use'),
             ),
             ElevatedButton(
-              child: const Text('Work with FutureBuilder'),
+              child: const Text('Advanced Use'),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => Intro(
-                      child: const FutureGuidePage(),
+                      child: const AdvancedGuidePage(),
                     ),
                   ),
                 );
