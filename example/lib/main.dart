@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_intro/flutter_intro.dart';
 import 'package:intro/advanced_usage.dart';
+import 'package:intro/demo_usage.dart';
 import 'package:intro/simple_usage.dart';
 
 void main() {
@@ -35,6 +36,22 @@ class StartPage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => Intro(
+                      padding: EdgeInsets.zero,
+                      borderRadius: const BorderRadius.all(Radius.circular(4)),
+                      maskColor: const Color.fromRGBO(0, 0, 0, .6),
+                      child: const DemoUsage(),
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Demo'),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(

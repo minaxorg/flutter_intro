@@ -4,11 +4,11 @@
 
 A better way for new feature introduction and step-by-step users guide for your Flutter project.
 
-<img src='https://raw.githubusercontent.com/tal-tech/flutter_intro/master/doc/example1.gif' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/example1.gif' width='300' />
 
 Automatically adapt when the device screen orientation is switched.
 
-<img src='https://raw.githubusercontent.com/tal-tech/flutter_intro/master/doc/example2.gif' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/example2.gif' width='300' />
 
 ## Usage
 
@@ -43,7 +43,7 @@ Intro intro = Intro(
   /// Use the default useDefaultTheme provided by the library to quickly build a guide page
   /// Need to customize the style and content of the guide page, implement the widgetBuilder method yourself
   /// * Above version 2.3.0, you can use useAdvancedTheme to have more control over the style of the widget
-  /// * Please see https://github.com/tal-tech/flutter_intro/issues/26
+  /// * Please see https://github.com/minaxorg/flutter_intro/issues/26
   widgetBuilder: StepWidgetBuilder.useDefaultTheme(
     /// Guide page text
     texts: [
@@ -59,7 +59,7 @@ Intro intro = Intro(
   ),
 );
 ```
-<img src='https://raw.githubusercontent.com/tal-tech/flutter_intro/master/doc/img1.png' width='500' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img1.png' width='500' />
 
 ### Bind globalKey to widgets that need to be guided
 
@@ -120,7 +120,7 @@ class StepWidgetParams {
 }
 ```
 
-<img src='https://raw.githubusercontent.com/tal-tech/flutter_intro/master/doc/img2.png' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img2.png' width='300' />
 
 `StepWidgetParams` provides all the parameters needed to generate the guide page. 
 The theme provided by default is also based on this parameter to generate the guide page.
@@ -129,11 +129,11 @@ The theme provided by default is also based on this parameter to generate the gu
 
 Q1. What if the highlighted area is not displayed completely?
 
-<img src='https://raw.githubusercontent.com/tal-tech/flutter_intro/master/doc/img3.jpg' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img3.jpg' width='300' />
 
 A1. That's because Intro provides 8px padding by default.
 
-<img src='https://raw.githubusercontent.com/tal-tech/flutter_intro/master/doc/img4.jpg' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img4.jpg' width='300' />
 
 We can change it by setting the value of padding.
 
@@ -144,7 +144,7 @@ intro = Intro(
   padding: EdgeInsets.zero,
 );
 ```
-<img src='https://raw.githubusercontent.com/tal-tech/flutter_intro/master/doc/img5.jpg' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img5.jpg' width='300' />
 
 <hr />
 
@@ -186,7 +186,7 @@ intro.setStepConfig(
   ),
 );
 ```
-<img src='https://raw.githubusercontent.com/tal-tech/flutter_intro/master/doc/img6.jpg' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img6.jpg' width='300' />
 
 <hr />
 
@@ -218,7 +218,7 @@ Q5: How to use in the web environment?
 
 A5: Due to [this bug](https://github.com/flutter/flutter/issues/69849) in Flutter, it is temporarily not supported for use on the Web.(Update: It works in Flutter 2.0+)
 
-<img src='https://raw.githubusercontent.com/tal-tech/flutter_intro/master/doc/example3.gif' width='600' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/example3.gif' width='600' />
 
 ## Example
 
