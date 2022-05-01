@@ -16,16 +16,8 @@ part of flutter_intro;
 /// ```
 /// {@end-tool}
 ///
-class StepWidgetBuilder {
-  @visibleForTesting
-  static Map smartGetPosition({
-    required Size size,
-    required Size screenSize,
-    required Offset offset,
-  }) =>
-      _smartGetPosition(size: size, screenSize: screenSize, offset: offset);
-
-  static Map _smartGetPosition({
+class _StepWidgetBuilder {
+  static OverlayPosition getOverlayPosition({
     required Size size,
     required Size screenSize,
     required Offset offset,
@@ -38,41 +30,43 @@ class StepWidgetBuilder {
     double topArea = screenHeight - height - bottomArea;
     double rightArea = screenWidth - offset.dx - width;
     double leftArea = screenWidth - width - rightArea;
-    Map position = Map();
-    position['crossAxisAlignment'] = CrossAxisAlignment.start;
+    OverlayPosition position = OverlayPosition(
+      width: 0,
+      crossAxisAlignment: CrossAxisAlignment.start,
+    );
 
     if (topArea > bottomArea) {
-      position['bottom'] = bottomArea + height + 16;
+      position.bottom = bottomArea + height + 16;
     } else {
-      position['top'] = offset.dy + height + 12;
+      position.top = offset.dy + height + 12;
     }
 
     if (leftArea > rightArea) {
-      position['right'] = rightArea <= 0 ? 16.0 : rightArea;
-      position['crossAxisAlignment'] = CrossAxisAlignment.end;
-      position['width'] = min(leftArea + width - 16, screenWidth * 0.618);
+      position.right = rightArea <= 0 ? 16.0 : rightArea;
+      position.crossAxisAlignment = CrossAxisAlignment.end;
+      position.width = min(leftArea + width - 16, screenWidth * 0.618);
     } else {
-      position['left'] = offset.dx <= 0 ? 16.0 : offset.dx;
-      position['width'] = min(rightArea + width - 16, screenWidth * 0.618);
+      position.left = offset.dx <= 0 ? 16.0 : offset.dx;
+      position.width = min(rightArea + width - 16, screenWidth * 0.618);
     }
 
     /// The distance on the right side is very large, it is more beautiful on the right side
     if (rightArea > 0.8 * topArea && rightArea > 0.8 * bottomArea) {
-      position['left'] = offset.dx + width + 16;
-      position['top'] = offset.dy - 4;
-      position['bottom'] = null;
-      position['right'] = null;
-      position['width'] = min<double>(position['width'], rightArea * 0.8);
+      position.left = offset.dx + width + 16;
+      position.top = offset.dy - 4;
+      position.bottom = null;
+      position.right = null;
+      position.width = min<double>(position.width, rightArea * 0.8);
     }
 
     /// The distance on the left is large, it is more beautiful on the left side
     if (leftArea > 0.8 * topArea && leftArea > 0.8 * bottomArea) {
-      position['right'] = rightArea + width + 16;
-      position['top'] = offset.dy - 4;
-      position['bottom'] = null;
-      position['left'] = null;
-      position['crossAxisAlignment'] = CrossAxisAlignment.end;
-      position['width'] = min<double>(position['width'], leftArea * 0.8);
+      position.right = rightArea + width + 16;
+      position.top = offset.dy - 4;
+      position.bottom = null;
+      position.left = null;
+      position.crossAxisAlignment = CrossAxisAlignment.end;
+      position.width = min<double>(position.width, leftArea * 0.8);
     }
 
     return position;

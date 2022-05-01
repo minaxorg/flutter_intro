@@ -10,6 +10,7 @@ part 'flutter_intro_exception.dart';
 part 'intro_button.dart';
 part 'intro_status.dart';
 part 'intro_step_builder.dart';
+part 'overlay_position.dart';
 part 'step_widget_builder.dart';
 part 'step_widget_params.dart';
 part 'throttling.dart';
@@ -65,7 +66,18 @@ class Intro extends InheritedWidget {
   IntroStatus get status => IntroStatus(isOpen: _overlayEntry != null);
 
   bool get hasNextStep =>
-      _introStepBuilderList.length > _finishedIntroStepBuilderList.length;
+      _currentIntroStepBuilder == null ||
+      _introStepBuilderList.where(
+            (element) {
+              return element.order > _currentIntroStepBuilder!.order;
+            },
+          ).length >
+          0;
+
+  bool get hasPrevStep =>
+      _finishedIntroStepBuilderList
+          .indexWhere((element) => element == _currentIntroStepBuilder) >
+      0;
 
   IntroStepBuilder? _getNextIntroStepBuilder({
     bool isUpdate = false,
@@ -73,14 +85,33 @@ class Intro extends InheritedWidget {
     if (isUpdate) {
       return _currentIntroStepBuilder;
     }
-    _introStepBuilderList.sort((a, b) => a.order - b.order);
-    final introStepBuilder =
-        _introStepBuilderList.cast<IntroStepBuilder?>().firstWhere(
-              (e) => !_finishedIntroStepBuilderList.contains(e),
-              orElse: () => null,
-            );
-    _currentIntroStepBuilder = introStepBuilder;
-    return introStepBuilder;
+    int index = _finishedIntroStepBuilderList
+        .indexWhere((element) => element == _currentIntroStepBuilder);
+    if (index != _finishedIntroStepBuilderList.length - 1) {
+      return _finishedIntroStepBuilderList[index + 1];
+    } else {
+      _introStepBuilderList.sort((a, b) => a.order - b.order);
+      final introStepBuilder =
+          _introStepBuilderList.cast<IntroStepBuilder?>().firstWhere(
+                (e) => !_finishedIntroStepBuilderList.contains(e),
+                orElse: () => null,
+              );
+      return introStepBuilder;
+    }
+  }
+
+  IntroStepBuilder? _getPrevIntroStepBuilder({
+    bool isUpdate = false,
+  }) {
+    if (isUpdate) {
+      return _currentIntroStepBuilder;
+    }
+    int index = _finishedIntroStepBuilderList
+        .indexWhere((element) => element == _currentIntroStepBuilder);
+    if (index > 0) {
+      return _finishedIntroStepBuilderList[index - 1];
+    }
+    return null;
   }
 
   Widget _widgetBuilder({
@@ -137,10 +168,16 @@ class Intro extends InheritedWidget {
 
   void _render({
     bool isUpdate = false,
+    bool reverse = false,
   }) {
-    IntroStepBuilder? introStepBuilder = _getNextIntroStepBuilder(
-      isUpdate: isUpdate,
-    );
+    IntroStepBuilder? introStepBuilder = reverse
+        ? _getPrevIntroStepBuilder(
+            isUpdate: isUpdate,
+          )
+        : _getNextIntroStepBuilder(
+            isUpdate: isUpdate,
+          );
+    _currentIntroStepBuilder = introStepBuilder;
 
     if (introStepBuilder == null) {
       _onFinish();
@@ -172,7 +209,7 @@ class Intro extends InheritedWidget {
           (introStepBuilder.padding?.top ?? padding.top),
     );
 
-    Map position = StepWidgetBuilder._smartGetPosition(
+    OverlayPosition position = _StepWidgetBuilder.getOverlayPosition(
       screenSize: _screenSize,
       size: _widgetSize,
       offset: _widgetOffset,
@@ -189,30 +226,25 @@ class Intro extends InheritedWidget {
             child: SizedBox(
               child: introStepBuilder.overlayBuilder!(
                 StepWidgetParams(
-                  onNext: hasNextStep
+                  order: introStepBuilder.order,
+                  onNext: hasNextStep ? _render : null,
+                  onPrev: hasPrevStep
                       ? () {
-                          _render();
+                          _render(reverse: true);
                         }
                       : null,
-                  onPrev: () {
-                    //
-                  },
-                  onFinish: () {
-                    _onFinish();
-                  },
+                  onFinish: _onFinish,
                   screenSize: _screenSize,
                   size: _widgetSize,
                   offset: _widgetOffset,
-                  currentStepIndex: 0,
-                  stepCount: 0,
                 ),
               ),
             ),
-            width: position['width'],
-            left: position['left'],
-            top: position['top'],
-            bottom: position['bottom'],
-            right: position['right'],
+            width: position.width,
+            left: position.left,
+            top: position.top,
+            bottom: position.bottom,
+            right: position.right,
           ),
         ],
       );
@@ -221,10 +253,10 @@ class Intro extends InheritedWidget {
         children: [
           Positioned(
             child: SizedBox(
-              width: position['width'],
+              width: position.width,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: position['crossAxisAlignment'],
+                crossAxisAlignment: position.crossAxisAlignment,
                 children: [
                   Text(
                     introStepBuilder.text!,
@@ -243,17 +275,15 @@ class Intro extends InheritedWidget {
                     text: buttonTextBuilder == null
                         ? 'Next'
                         : buttonTextBuilder!(introStepBuilder.order),
-                    onPressed: () {
-                      _render();
-                    },
+                    onPressed: _render,
                   ),
                 ],
               ),
             ),
-            left: position['left'],
-            top: position['top'],
-            bottom: position['bottom'],
-            right: position['right'],
+            left: position.left,
+            top: position.top,
+            bottom: position.bottom,
+            right: position.right,
           ),
         ],
       );
@@ -264,12 +294,6 @@ class Intro extends InheritedWidget {
     } else {
       _overlayEntry!.markNeedsBuild();
     }
-  }
-
-  void refresh() {
-    _render(
-      isUpdate: true,
-    );
   }
 
   void _createOverlay() {
@@ -311,7 +335,12 @@ class Intro extends InheritedWidget {
                         bottom: 0,
                         onTap: maskClosable
                             ? () {
-                                _render();
+                                Future.delayed(
+                                  const Duration(milliseconds: 200),
+                                  () {
+                                    _render();
+                                  },
+                                );
                               }
                             : null,
                       ),
@@ -344,6 +373,12 @@ class Intro extends InheritedWidget {
   void start() {
     dispose();
     _render();
+  }
+
+  void refresh() {
+    _render(
+      isUpdate: true,
+    );
   }
 
   static Intro? of(BuildContext context) {

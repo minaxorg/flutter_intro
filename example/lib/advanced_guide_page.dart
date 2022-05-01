@@ -45,9 +45,17 @@ class _AdvancedGuidePageState extends State<AdvancedGuidePage> {
                                 ? 'Now you can continue.'
                                 : 'Click highlight area to add new widget.',
                           ),
-                          ElevatedButton(
-                            onPressed: params.onNext,
-                            child: const Text('Next'),
+                          Row(
+                            children: [
+                              IntroButton(
+                                text: 'Prev',
+                                onPressed: params.onPrev,
+                              ),
+                              IntroButton(
+                                text: 'Next',
+                                onPressed: params.onNext,
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -89,13 +97,17 @@ class _AdvancedGuidePageState extends State<AdvancedGuidePage> {
                                 ),
                                 Row(
                                   children: [
-                                    ElevatedButton(
-                                      onPressed: params.onNext,
-                                      child: const Text('Next'),
+                                    IntroButton(
+                                      onPressed: params.onPrev,
+                                      text: 'Prev',
                                     ),
-                                    ElevatedButton(
+                                    IntroButton(
+                                      onPressed: params.onNext,
+                                      text: 'Next',
+                                    ),
+                                    IntroButton(
                                       onPressed: params.onFinish,
-                                      child: const Text('Finish'),
+                                      text: 'Finish',
                                     ),
                                   ],
                                 ),
