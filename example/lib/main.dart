@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_intro/flutter_intro.dart';
-import 'package:intro/advanced_guide_page.dart';
-import 'package:intro/simple_use.dart';
+import 'package:intro/advanced_usage.dart';
+import 'package:intro/simple_usage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,22 +43,22 @@ class StartPage extends StatelessWidget {
                     builder: (BuildContext context) => Intro(
                       buttonTextBuilder: (order) =>
                           order == 3 ? 'Custom Button Text' : 'Next',
-                      child: const SimpleUse(),
+                      child: const SimpleUsage(),
                     ),
                   ),
                 );
               },
-              child: const Text('Simple Use'),
+              child: const Text('Simple Usage'),
             ),
             ElevatedButton(
-              child: const Text('Advanced Use'),
+              child: const Text('Advanced Usage'),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) => Intro(
                       maskClosable: true,
-                      child: const AdvancedGuidePage(),
+                      child: const AdvancedUsage(),
                     ),
                   ),
                 );

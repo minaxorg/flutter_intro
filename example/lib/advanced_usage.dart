@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_intro/flutter_intro.dart';
 
-class AdvancedGuidePage extends StatefulWidget {
-  const AdvancedGuidePage({Key? key}) : super(key: key);
+class AdvancedUsage extends StatefulWidget {
+  const AdvancedUsage({Key? key}) : super(key: key);
 
   @override
-  State<AdvancedGuidePage> createState() => _AdvancedGuidePageState();
+  State<AdvancedUsage> createState() => _AdvancedUsageState();
 }
 
-class _AdvancedGuidePageState extends State<AdvancedGuidePage> {
+class _AdvancedUsageState extends State<AdvancedUsage> {
   bool rendered = false;
 
   @override
@@ -40,22 +40,41 @@ class _AdvancedGuidePageState extends State<AdvancedGuidePage> {
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         children: [
-                          Text(
-                            params.onNext != null
-                                ? 'Now you can continue.'
-                                : 'Click highlight area to add new widget.',
-                          ),
-                          Row(
-                            children: [
-                              IntroButton(
-                                text: 'Prev',
-                                onPressed: params.onPrev,
-                              ),
-                              IntroButton(
-                                text: 'Next',
-                                onPressed: params.onNext,
-                              ),
-                            ],
+                          params.onNext == null
+                              ? Column(
+                                  children: const [
+                                    Text(
+                                      'Of course, you can also render what you want through overlayBuilder.',
+                                      style: TextStyle(height: 1.6),
+                                    ),
+                                    Text(
+                                      'In addition, we can finally add new guide widget dynamically.',
+                                      style: TextStyle(height: 1.6),
+                                    ),
+                                    Text(
+                                      'Click highlight area to add new widget.',
+                                      style: TextStyle(height: 1.6),
+                                    )
+                                  ],
+                                )
+                              : const Text(
+                                  'As you can see, you can move on to the next step'),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 16,
+                            ),
+                            child: Row(
+                              children: [
+                                IntroButton(
+                                  text: 'Prev',
+                                  onPressed: params.onPrev,
+                                ),
+                                IntroButton(
+                                  text: 'Next',
+                                  onPressed: params.onNext,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -93,30 +112,35 @@ class _AdvancedGuidePageState extends State<AdvancedGuidePage> {
                             child: Column(
                               children: [
                                 const Text(
-                                  'Haha haha.',
+                                  'That\'s it, hopefully version 3.0 makes you feel better than 2.0',
                                 ),
-                                Row(
-                                  children: [
-                                    IntroButton(
-                                      onPressed: params.onPrev,
-                                      text: 'Prev',
-                                    ),
-                                    IntroButton(
-                                      onPressed: params.onNext,
-                                      text: 'Next',
-                                    ),
-                                    IntroButton(
-                                      onPressed: params.onFinish,
-                                      text: 'Finish',
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 16,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      IntroButton(
+                                        onPressed: params.onPrev,
+                                        text: 'Prev',
+                                      ),
+                                      IntroButton(
+                                        onPressed: params.onNext,
+                                        text: 'Next',
+                                      ),
+                                      IntroButton(
+                                        onPressed: params.onFinish,
+                                        text: 'Finish',
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                           );
                         },
                         builder: (context, key) => Text(
-                          'delay render and with custom overlay.',
+                          'I am a delay render widget.',
                           key: key,
                         ),
                       )
@@ -128,7 +152,9 @@ class _AdvancedGuidePageState extends State<AdvancedGuidePage> {
         floatingActionButton: IntroStepBuilder(
           /// 1st guide
           order: 1,
-          text: '1st guide',
+          text:
+              'Some properties on IntroStepBuilder like `borderRadius` `padding`'
+              ' allow you to configure the configuration of this step.',
           padding: const EdgeInsets.symmetric(
             vertical: -5,
             horizontal: -5,

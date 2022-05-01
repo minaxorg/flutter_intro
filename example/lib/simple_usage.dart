@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_intro/flutter_intro.dart';
 
-class SimpleUse extends StatelessWidget {
-  const SimpleUse({Key? key}) : super(key: key);
+class SimpleUsage extends StatelessWidget {
+  const SimpleUsage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,8 @@ class SimpleUse extends StatelessWidget {
                 IntroStepBuilder(
                   order: 2,
                   text:
-                      'Simple use IntroStepBuilder to include widget that need to be guide.',
+                      'Use IntroStepBuilder to wrap the widget you need to guide.'
+                      ' Add the necessary order to it, and then add the key in the builder method to the widget.',
                   builder: (context, key) => Text(
                     'Tap the floatingActionButton to start.',
                     key: key,
@@ -31,7 +32,7 @@ class SimpleUse extends StatelessWidget {
                 IntroStepBuilder(
                   order: 3,
                   text:
-                      'If you need more customization, please see other examples.',
+                      'If you need more configuration, please refer to Advanced Usage.',
                   builder: (context, key) => Text(
                     'And you can use `buttonTextBuilder` to set the button text.',
                     key: key,
@@ -44,7 +45,6 @@ class SimpleUse extends StatelessWidget {
         floatingActionButton: IntroStepBuilder(
           order: 1,
           text: 'OK, let\'s start.',
-          borderRadius: BorderRadius.circular(64),
           builder: (context, key) => FloatingActionButton(
             key: key,
             child: const Icon(
