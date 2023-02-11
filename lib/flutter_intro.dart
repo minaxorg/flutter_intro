@@ -368,7 +368,7 @@ class Intro extends InheritedWidget {
         );
       },
     );
-    Overlay.of(_context!)!.insert(_overlayEntry!);
+    Overlay.of(_context!).insert(_overlayEntry!);
   }
 
   void start() {
