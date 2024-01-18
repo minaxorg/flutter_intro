@@ -53,10 +53,11 @@ class IntroStepBuilder extends StatefulWidget {
 }
 
 class _IntroStepBuilderState extends State<IntroStepBuilder> {
+  Timer? _timer;
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
+    _timer = Timer(Duration.zero, () {
       Intro flutterIntro = Intro.of(context);
       if (!flutterIntro._introStepBuilderList.contains(widget)) {
         flutterIntro._introStepBuilderList.add(widget);
@@ -65,6 +66,12 @@ class _IntroStepBuilderState extends State<IntroStepBuilder> {
         }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
