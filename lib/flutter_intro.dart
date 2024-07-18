@@ -40,7 +40,8 @@ class Intro extends InheritedWidget {
 
   final List<String> _finishedGroups = [];
 
-  final _th = _Throttling(duration: const Duration(milliseconds: 500));
+  final _Throttling _th =
+      _Throttling(duration: const Duration(milliseconds: 500));
 
   /// [Map] of all steps that need to be displayed. This is generated with
   /// first-frame callbacks on routes (see `intro_step_builder.dart`).
