@@ -67,7 +67,7 @@ class Intro extends InheritedWidget {
   /// [BorderRadius.all(Radius.circular(4))])
   final BorderRadiusGeometry borderRadius;
 
-  /// Mask color of step page (default transparent black)
+  /// Mask color of step page (default translucent black)
   final Color maskColor;
 
   /// [bool] to not animate the steps (default false)
