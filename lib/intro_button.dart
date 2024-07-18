@@ -30,28 +30,17 @@ class IntroButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 28,
+      height: height,
+      width: width,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          foregroundColor: Colors.white,
+          foregroundColor: color,
           shape: const StadiumBorder(),
-          side: onPressed == null
-              ? null
-              : const BorderSide(
-                  color: Colors.white,
-                ),
-          padding: const EdgeInsets.symmetric(
-            vertical: 0,
-            horizontal: 8,
-          ),
+          side: onPressed == null ? null : BorderSide(color: color),
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontSize: 12,
-          ),
-        ),
+        child: Text(text, style: TextStyle(fontSize: fontSize)),
       ),
     );
   }
