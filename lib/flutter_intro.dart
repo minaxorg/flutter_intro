@@ -90,16 +90,15 @@ class Intro extends InheritedWidget {
   /// customization available
   Intro({
     super.key,
-    this.padding = const EdgeInsets.all(8),
-    this.borderRadius = const BorderRadius.all(Radius.circular(4)),
-    this.maskColor = const Color.fromRGBO(0, 0, 0, .6),
-    this.noAnimation = false,
-    this.maskClosable = false,
+    this.padding = defaultPadding,
+    this.borderRadius = defaultBorderRadius,
+    this.maskColor = defaultMaskColor,
+    this.noAnimation = defaultAnimate,
+    this.maskClosable = defaultMaskClosable,
     this.buttonTextBuilder,
     required super.child,
   }) {
-    _animationDuration =
-        noAnimation ? Duration.zero : const Duration(milliseconds: 300);
+    _animationDuration = noAnimation ? Duration.zero : defaultAnimationDuration;
   }
 
   /// Get [IntroStatus] for whether the intro is open or closed
