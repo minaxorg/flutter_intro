@@ -1,38 +1,53 @@
 part of 'flutter_intro.dart';
 
+/// [StatefulWidget] that creates a step within an [Intro] widget. Build the
+/// desired widget to highlight within [builder], applying the `key` argument
+/// to ensure it is found by [Intro]. Set a unique [order] value to create a
+/// unique key for the step.
 class IntroStepBuilder extends StatefulWidget {
+  /// Required [Function] that builds and returns a [Widget] using `context` and
+  /// `key`, which should be applied to the returned [Widget].
   final Widget Function(
     BuildContext context,
     GlobalKey key,
   ) builder;
 
-  /// Set the group of this step, default is 'default'
+  /// Set the group of this step (default is 'default')
   final String group;
 
-  /// Establish a running sequence where lower values take precedence for execution.
-  /// [order] is used internally to mark whether a component participates in guiding,
-  /// so it is not recommended to use variables to modify the value of order to avoid bugs.
+  /// Required [int] that establishes a running sequence where lower values take
+  /// precedence for execution. [order] is used internally to mark whether a
+  /// component participates in guiding, so to avoid bugs we recommend not
+  /// modifying this value using variables.
   final int order;
 
-  /// The method of generating the content of the guide page,
-  /// which will be called internally by [Intro] when the guide page appears.
-  /// And will pass in some parameters on the current page through [StepWidgetParams]
+  /// Optional nullable [Function] to generate the content of the guide step,
+  /// used internally by [Intro] when the guide page appears. Returns a [Widget]
+  /// and takes a [StepWidgetParams] argument. Either [text] or [overlayBuilder]
+  /// must be set.
   final Widget Function(StepWidgetParams params)? overlayBuilder;
 
-  /// When highlight widget is tapped
+  /// Optional nullable [VoidCallback] for when highlighted widget is tapped
   final VoidCallback? onHighlightWidgetTap;
 
-  /// [Widget] [borderRadius] of the selected area, the default is [BorderRadius.all(Radius.circular(4))]
+  /// [Widget] [borderRadius] of the selected area, the default is
+  /// [BorderRadius.all(Radius.circular(4))]
   final BorderRadiusGeometry? borderRadius;
 
-  /// [Widget] [padding] of the selected area, the default is [EdgeInsets.all(8)]
+  /// [Widget] [padding] of the selected area, the default is
+  /// [EdgeInsets.all(8)]
   final EdgeInsets? padding;
 
+  /// Optional nullable [String] text for the guide step. Either [text] or
+  /// [overlayBuilder] must be set.
   final String? text;
 
-  /// When widget loaded (means the key is add to context)
+  /// Optional nullable [VoidCallback] for when widget is loaded (when the key
+  /// is add to context)
   final VoidCallback? onWidgetLoad;
 
+  /// Constructor for [IntroStepBuilder] widget, requiring [order] and [builder]
+  /// but with further customization available
   const IntroStepBuilder({
     super.key,
     required this.order,
