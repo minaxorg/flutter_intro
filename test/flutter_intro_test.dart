@@ -63,4 +63,38 @@ void main() {
             overlayBuilder: testOverlayBuilder),
         isNotNull);
   });
+
+  test('IntroButton uses default values', () {
+    const IntroButton introButton = IntroButton(text: 'test');
+
+    expect(introButton.text, 'test');
+    expect(introButton.width, isNull);
+    expect(introButton.height, IntroButton.defaultHeight);
+    expect(introButton.fontSize, IntroButton.defaultFontSize);
+    expect(introButton.color, IntroButton.defaultColor);
+    expect(introButton.onPressed, isNull);
+  });
+
+  test('IntroButton uses custom values', () {
+    const double testWidth = 37.0;
+    const double testHeight = 42.0;
+    const double fontTestSize = 19.0;
+    const Color testColor = Color.fromRGBO(0, 0, 255, 0.5);
+
+    final IntroButton introButton = IntroButton(
+      text: 'test 2',
+      width: testWidth,
+      height: testHeight,
+      fontSize: fontTestSize,
+      color: testColor,
+      onPressed: () {},
+    );
+
+    expect(introButton.text, 'test 2');
+    expect(introButton.width, testWidth);
+    expect(introButton.height, testHeight);
+    expect(introButton.fontSize, fontTestSize);
+    expect(introButton.color, testColor);
+    expect(introButton.onPressed, isNotNull);
+  });
 }
