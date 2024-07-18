@@ -11,9 +11,19 @@ class IntroButton extends StatelessWidget {
   static const double defaultFontSize = 12;
 
   final String text;
+  final double? width;
+  final double height;
+  final double fontSize;
+  final Color color;
+  final VoidCallback? onPressed;
+
   const IntroButton({
     super.key,
     required this.text,
+    this.width,
+    this.height = defaultHeight,
+    this.fontSize = defaultFontSize,
+    this.color = defaultColor,
     this.onPressed,
   });
 
