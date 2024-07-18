@@ -1,5 +1,10 @@
 part of 'flutter_intro.dart';
 
+/// Button [Widget] underneath intro text, using [text] as its content and
+/// [onPressed] as its action.
+///
+/// Customize with [width] (default null), [height] (default 28), [fontSize]
+/// (default 12), and [color] (default white).
 class IntroButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String text;
