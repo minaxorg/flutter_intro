@@ -21,13 +21,14 @@ To use this package, add `flutter_intro` as a [dependency in your pubspec.yaml f
 
 ### Init
 
-Wrap the app root widget with `Intro`, also you can set some global properties on `Intro`.
+Wrap the app root widget with `Intro`. You can also set some global properties on `Intro` as seen
+below.
 
 ```dart
 import 'package:flutter_intro/flutter_intro.dart';
 
 Intro(
-  /// The padding of the highlighted area and the widget
+  /// Padding of the highlighted area and the widget
   padding: const EdgeInsets.all(8),
 
   /// Border radius of the highlighted area
@@ -36,16 +37,17 @@ Intro(
   /// The mask color of step page
   maskColor: const Color.fromRGBO(0, 0, 0, .6);
 
-  /// No animation
+  /// Toggle animation
   noAnimation: false;
 
-  /// Click on whether the mask is allowed to be closed.
+  /// Toggle whether the mask can be closed
   maskClosable: false;
 
-  /// Custom button text
+  /// Build custom button text
   buttonTextBuilder: (order) =>
       order == 3 ? 'Custom Button Text' : 'Next',
 
+  /// High-level widget
   child: const YourApp(),
 )
 ```
