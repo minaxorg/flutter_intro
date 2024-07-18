@@ -93,17 +93,21 @@ Intro.of(context).start();
 ## Advanced Usage
 
 ```dart
+/// See `example/lib/advanced_usage.dart` for more details
 IntroStepBuilder(
-  ...,
+  order: 2,
+  
+  /// Create a customized guide widget
   overlayBuilder: (StepWidgetParams params) {
-    return YourOverlay();
+    return YourCustomOverlay();
   },
 )
 ```
 
-<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img2.png' width='300' />
+`StepWidgetParams` provides many useful parameters to generate the guide overlay, as seen below.
 
-`StepWidgetParams` provides all the parameters needed to generate the guide overlay. 
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img2.png' width='300'
+alt='Intro screenshot showing definitions of spacing and sizing' />
 
 ## Troubleshoot
 
