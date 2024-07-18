@@ -50,7 +50,8 @@ class _StepWidgetBuilder {
       position.width = min(rightArea + width - 16, screenWidth * 0.618);
     }
 
-    /// The distance on the right side is very large, it is more beautiful on the right side
+    /// The distance on the right side is very large, it is more beautiful on
+    /// the right side
     if (rightArea > 0.8 * topArea && rightArea > 0.8 * bottomArea) {
       position.left = offset.dx + width + 16;
       position.top = offset.dy - 4;

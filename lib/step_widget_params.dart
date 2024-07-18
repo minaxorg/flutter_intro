@@ -1,7 +1,7 @@
 part of 'flutter_intro.dart';
 
-/// The data passed in when the system calls [IntroStep.widgetBuilder] when the guide page is generated
-///
+/// The data passed in when the system calls [IntroStep.widgetBuilder] when the
+/// guide page is generated
 class StepWidgetParams {
   /// Return to the previous guide page method, or null if there is none
   final VoidCallback? onPrev;
@@ -40,6 +40,7 @@ class StepWidgetParams {
 
   @override
   String toString() {
-    return 'StepWidgetParams(group: $group, order: $order, size: $size, screenSize: $screenSize, offset: $offset)';
+    return 'StepWidgetParams(group: $group, order: $order, size: $size, '
+        'screenSize: $screenSize, offset: $offset)';
   }
 }
