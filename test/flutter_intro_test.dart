@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_intro/flutter_intro.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// Test [Intro] and [IntroStepBuilder].
+/// Test [Intro], [IntroStepBuilder], and [IntroButton].
 void main() {
   test('Intro uses default values', () {
     final Intro intro = Intro(child: Container());
