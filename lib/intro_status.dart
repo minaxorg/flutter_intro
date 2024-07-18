@@ -1,11 +1,11 @@
 part of 'flutter_intro.dart';
 
-/// Intro current status
-///
+/// Intro current status, held in a [isOpen], a [bool].
 class IntroStatus {
-  /// Flutter_intro is showing on the screen or not
+  /// [bool] for whether intro is showing on the screen or not
   final bool isOpen;
 
+  /// Constructor for [IntroStatus] with only member, `isOpen`, required.
   IntroStatus({
     required this.isOpen,
   });
