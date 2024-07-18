@@ -230,9 +230,10 @@ class Intro extends InheritedWidget {
 
     if (currentContext == null) {
       throw FlutterIntroException(
-        'The current context is null, because there is no widget in the tree that matches this global key.'
-        ' Please check whether the key in IntroStepBuilder(group: ${step.group}, order: ${step.order}) has forgotten to bind.'
-        ' If you are already bound, it means you have encountered a bug, please let me know.',
+        'The current context is null because there is no widget in the tree '
+        'that matches this global key. Please check whether the key in '
+        'IntroStepBuilder(group: ${step.group}, order: ${step.order}) has been '
+        'applied to a widget. If so, this may be a bug. Let us know!',
       );
     }
 
@@ -415,7 +416,8 @@ class Intro extends InheritedWidget {
     if (_finishedGroups.contains(group)) {
       if (!reset) {
         throw FlutterIntroException(
-          'The group $group has already been completed, if you want to start again, please call the start method with reset = true.',
+          'The group $group has already been completed. If you want to start '
+          'again, please call the start method with reset = true.',
         );
       } else {
         _finishedGroups.remove(group);
