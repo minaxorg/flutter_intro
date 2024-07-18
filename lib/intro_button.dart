@@ -17,6 +17,8 @@ class IntroButton extends StatelessWidget {
   final Color color;
   final VoidCallback? onPressed;
 
+  /// Constructor for [IntroButton] with required [text] and optional
+  /// parameters.
   const IntroButton({
     super.key,
     required this.text,
