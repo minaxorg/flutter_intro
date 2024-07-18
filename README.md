@@ -4,9 +4,9 @@
 
 A better way for new feature introduction and step-by-step user guide for your Flutter project.
 
-| <img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/v3/example1.gif' width='300' /> | <img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/example2.gif' width='300' /> |
-|---|---|
-|<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/v3/example2.gif' width='300' /> | <img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/v3/example3.gif' width='300' />|
+| <img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/v3/example1.gif' width='300' alt='Simple intro demo' />               | <img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/example2.gif' width='300' alt='Screen rotate intro demo' /> |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| <img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/v3/example2.gif' width='300' alt='Advanced, customized intro demo' /> | <img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/v3/example3.gif' width='300' alt='Multiple groups demo' />  |
 
 ## Features
 
