@@ -109,54 +109,51 @@ IntroStepBuilder(
 <img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img2.png' width='300'
 alt='Intro screenshot showing definitions of spacing and sizing' />
 
-## Troubleshoot
+## Troubleshooting
 
-Q1. What if the highlighted area is not displayed completely?
+### Q1. What if the highlighted area is not displayed completely?
 
-<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img3.jpg' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img3.jpg' width='300'
+alt='Highlighted icon with padding that goes off-screen' />
 
 A1. That's because Intro provides 8px padding by default.
 
-<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img4.jpg' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img4.jpg' width='300'
+alt='Highlighted icon with icon selecting to show padding' />
 
-We can change it by setting the value of padding.
+We can change it by setting the value of `padding`.
 
 ```dart
 Intro(
-  ...,
-  /// Set it to zero
+  /// Set padding to zero (or negative) to reduce highlight size
   padding: EdgeInsets.zero,
   child: const YourApp(),
 );
 ```
-<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img5.jpg' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img5.jpg' width='300'
+alt='Highlighted icon with smaller padding' />
 
-<hr />
+### Q2. Can I set different configurations for each step?
 
-Q2. Can I set different configurations for each step?
+A2. Yes, you can configure every `IntroStepBuilder`.
 
-A2. Yes, you can set in every `IntroStepBuilder`.
 ```dart
 IntroStepBuilder(
-  ...,
-  padding: const EdgeInsets.symmetric(
-    vertical: -5,
-    horizontal: -5,
-  ),
+  order: 3,
+  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
   borderRadius: const BorderRadius.all(Radius.circular(64)),
   builder: (context, key) => YourWidget(),
 )
 ```
 
-<hr />
+### Q3. Can I make the highlight area smaller?
 
-Q3. Can I make the highlight area smaller?
-
-A3. You can do it by setting padding to a negative number.
+A3. Yes, can do it by setting `padding` to a negative number.
 
 ```dart
 IntroStepBuilder(
-  ...,
+  order: 4,
+  /// Reduce highlight size further
   padding: const EdgeInsets.symmetric(
     vertical: -5,
     horizontal: -5,
@@ -164,11 +161,10 @@ IntroStepBuilder(
   builder: (context, key) => YourWidget(),
 )
 ```
-<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img6.jpg' width='300' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/img6.jpg' width='300'
+alt='Highlighted icon with even smaller padding' />
 
-<hr />
-
-Q4. How can I manually destroy the guide page, such as the user pressing the back button?
+### Q4. If the user presses or gestures "back", an exception happens. How do I avoid this?
 
 A4. You can call the dispose method of the intro instance.
 
@@ -176,7 +172,7 @@ A4. You can call the dispose method of the intro instance.
 WillPopScope(
   child: Scaffold(...),
   onWillPop: () async {
-    Intro intro = Intro.of(context);
+    final Intro intro = Intro.of(context);
 
     if (intro.status.isOpen == true) {
       intro.dispose();
@@ -187,9 +183,10 @@ WillPopScope(
 )
 ```
 
-Q5. `WillPopScope` is deprecated, is there any better solution?
+### Q5. `WillPopScope` is deprecated, is there any better solution?
 
-A5. In version 3.1.0, `ValueNotifier<IntroStatus> statusNotifier` is added. You can achieve the same effect through the following sample code.
+A5. As of v3.1.0, you can use `ValueNotifier<IntroStatus> statusNotifier`.
+You can achieve the same effect through the following sample code.
 
 ```dart
 ValueListenableBuilder(
@@ -211,4 +208,3 @@ ValueListenableBuilder(
 ## Example
 
 Please check the example in `example/lib/main.dart`.
-
