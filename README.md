@@ -54,29 +54,33 @@ Intro(
 
 ### Add guided widget
 
-This time, the `IntroStepBuilder` class is added to do this, which solves the problem that the previous version could not dynamically add a guide.
+Wrap a widget with `IntroStepBuilder`, placing the original widget inside `builder` and applying the
+`key` so it can be found.
+
+`order` must be defined uniquely per route so that the unique `key` can be generated.
 
 ```dart
+/// See docs for full list of properties, some of which override [Intro] ones
 IntroStepBuilder(
-  /// Guide order, can not be repeated with other
+  /// Required: use unique int for each step to set guide order
   order: 1,
-  /// At least one of text and overlayBuilder
+  
+  /// Use either `text` or `overlayBuilder` to create guide content (see "Advanced Usage" for latter
+  /// example).
+
   /// Use text to quickly add leading text
-  text: 'guide text',
-  /// Using overlayBuilder can be more customized, please refer to advanced usage in example
-  overlayBuilder: (params) {
-    ///
-  }
-  /// You can specify the configuration for the individual guide here
-  borderRadius: const BorderRadius.all(Radius.circular(64)),
-  builder: (context, key) => NeedGuideWidget(
-    /// You should bind the key here.
+  text: 'Use this widget to...',
+  
+  /// Required: provide function that returns a `Widget` with the key
+  builder: (BuildContext context, GlobalKey key) => NeedGuideWidget(
+    /// Bind the key to whatever is returned
     key: key,
   ),
 )
 ```
 
-<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/v3/img1.png' width='500' />
+<img src='https://raw.githubusercontent.com/minaxorg/flutter_intro/master/doc/v3/img1.png'
+width='500' alt='Intro screenshot showing subjects of above parameters' />
 
 ### Run
 
