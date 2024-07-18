@@ -6,7 +6,10 @@ part of 'flutter_intro.dart';
 /// Customize with [width] (default null), [height] (default 28), [fontSize]
 /// (default 12), and [color] (default white).
 class IntroButton extends StatelessWidget {
-  final VoidCallback? onPressed;
+  static const double defaultHeight = 28;
+  static const Color defaultColor = Colors.white;
+  static const double defaultFontSize = 12;
+
   final String text;
   const IntroButton({
     super.key,
