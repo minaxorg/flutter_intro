@@ -38,6 +38,14 @@ class Intro extends InheritedWidget {
   static Size _widgetSize = const Size(0, 0);
   static Offset _widgetOffset = const Offset(0, 0);
 
+  static const EdgeInsets defaultPadding = EdgeInsets.all(8);
+  static const BorderRadius defaultBorderRadius =
+      BorderRadius.all(Radius.circular(4));
+  static const Color defaultMaskColor = Color.fromRGBO(0, 0, 0, .6);
+  static const bool defaultAnimate = false;
+  static const Duration defaultAnimationDuration = Duration(milliseconds: 300);
+  static const bool defaultMaskClosable = false;
+
   final List<String> _finishedGroups = [];
 
   final _Throttling _th =
