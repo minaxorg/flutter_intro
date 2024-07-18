@@ -106,7 +106,7 @@ class Intro extends InheritedWidget {
 
   /// Return [List] of [IntroStepBuilder] widgets ordered by `order` property
   /// ascending. Return empty list if nothing for the [_group] is found.
-  List<IntroStepBuilder> _getSteps() {
+  List<IntroStepBuilder> get _steps {
     return (_stepsMap[_group] ?? [])..sort((a, b) => a.order - b.order);
   }
 
@@ -114,14 +114,13 @@ class Intro extends InheritedWidget {
   /// is a step with a higher `order` value detected.
   bool get hasNextStep =>
       _currentStep == null ||
-      _getSteps().where((e) => e.order > _currentStep!.order).isNotEmpty;
+      _steps.where((e) => e.order > _currentStep!.order).isNotEmpty;
 
   /// Get [bool] for whether the step has one before it, judged by if there
   /// is a step with a lower `order` value detected.
   bool get hasPrevStep =>
       _currentStep != null &&
-      _getSteps().firstWhereOrNull((e) => e.order < _currentStep!.order) !=
-          null;
+      _steps.firstWhereOrNull((e) => e.order < _currentStep!.order) != null;
 
   /// Return nullable [IntroStepBuilder] for the next step in the sequence as
   /// compared to [_currentStep].
@@ -132,11 +131,11 @@ class Intro extends InheritedWidget {
       return _currentStep;
     }
 
-    final List<IntroStepBuilder> steps = _getSteps();
+    final List<IntroStepBuilder> steps = _steps;
 
     if (_currentStep == null) return steps.firstOrNull;
 
-    return _getSteps().firstWhereOrNull(
+    return steps.firstWhereOrNull(
         (IntroStepBuilder s) => s.order > _currentStep!.order);
   }
 
@@ -151,7 +150,7 @@ class Intro extends InheritedWidget {
 
     if (_currentStep == null) return null;
 
-    return _getSteps().lastWhereOrNull(
+    return _steps.lastWhereOrNull(
       (e) => e.order < _currentStep!.order,
     );
   }
