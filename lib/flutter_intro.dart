@@ -21,12 +21,10 @@ part 'throttling.dart';
 /// settings for their behavior and display. Use at top level of widget tree for
 /// global access to child steps.
 ///
-/// Use [start] to begin the guide.
-///
-/// [_stepsMap] is generated with a first-frame callback on routes, so any intro
-/// to be displayed on route arrival/load should use a slight delay, otherwise
-/// a race condition may occur and the guide may now show because it has no
-/// steps.
+/// Use [start] to begin the guide. To safely start a guide on initial route
+/// load, call [start] within [IntroStepBuilder.onWidgetLoad] of the first step.
+/// Consider using [Future.delayed] for ~10ms to ensure that all steps are
+/// ready.
 class Intro extends InheritedWidget {
   static String _group = 'default';
   static BuildContext? _context;
