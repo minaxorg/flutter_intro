@@ -52,7 +52,7 @@ class _StepWidgetBuilder {
 
     /// The distance on the right side is very large, it is more beautiful on
     /// the right side
-    if (rightArea > 0.8 * topArea && rightArea > 0.8 * bottomArea) {
+    if (rightArea > 0.8 * topArea && rightArea > 0.8 * bottomArea && rightArea > leftArea) {
       position.left = offset.dx + width + 16;
       position.top = offset.dy - 4;
       position.bottom = null;
@@ -61,7 +61,7 @@ class _StepWidgetBuilder {
     }
 
     /// The distance on the left is large, it is more beautiful on the left side
-    if (leftArea > 0.8 * topArea && leftArea > 0.8 * bottomArea) {
+    if (leftArea > 0.8 * topArea && leftArea > 0.8 * bottomArea && leftArea > rightArea) {
       position.right = rightArea + width + 16;
       position.top = offset.dy - 4;
       position.bottom = null;
