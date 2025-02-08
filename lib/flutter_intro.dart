@@ -42,6 +42,7 @@ class Intro extends InheritedWidget {
   static const bool defaultAnimate = false;
   static const Duration defaultAnimationDuration = Duration(milliseconds: 300);
   static const bool defaultMaskClosable = false;
+  static const bool defaultUseRootOverlay = false;
 
   final List<String> _finishedGroups = [];
 
@@ -73,6 +74,13 @@ class Intro extends InheritedWidget {
   /// [bool] for whether the mask can be closed (default false)
   final bool maskClosable;
 
+  /// [bool] for whether to use the root overlay (default false)
+  final bool useRootOverlay;
+
+  /// The overlay that should be used to display the intro steps.
+  /// If not provided, the overlay of the context will be used.
+  final OverlayState? overlay;
+
   /// [ValueNotifier] of [IntroStatus], which can be used with
   /// [ValueListenableBuilder] for instant UI updates. See readme for example.
   /// Default is not open.
@@ -100,6 +108,8 @@ class Intro extends InheritedWidget {
     this.maskColor = defaultMaskColor,
     this.noAnimation = defaultAnimate,
     this.maskClosable = defaultMaskClosable,
+    this.useRootOverlay = defaultUseRootOverlay,
+    this.overlay,
     this.buttonBuilder,
     @Deprecated(
       'Use [buttonBuilder] instead'
@@ -254,6 +264,8 @@ class Intro extends InheritedWidget {
       );
     }
 
+    final renderOverlay = overlay?.context.findRenderObject();
+
     RenderBox renderBox = currentContext.findRenderObject() as RenderBox;
 
     _screenSize = MediaQuery.of(_context!).size;
@@ -262,9 +274,9 @@ class Intro extends InheritedWidget {
       renderBox.size.height + (step.padding?.vertical ?? padding.vertical),
     );
     _widgetOffset = Offset(
-      renderBox.localToGlobal(Offset.zero).dx -
+      renderBox.localToGlobal(Offset.zero, ancestor: renderOverlay).dx -
           (step.padding?.left ?? padding.left),
-      renderBox.localToGlobal(Offset.zero).dy -
+      renderBox.localToGlobal(Offset.zero, ancestor: renderOverlay).dy -
           (step.padding?.top ?? padding.top),
     );
 
@@ -432,7 +444,16 @@ class Intro extends InheritedWidget {
         );
       },
     ));
-    Overlay.of(_context!).insert(_overlayEntry!);
+
+    final OverlayState overlayState;
+
+    if (overlay != null) {
+      overlayState = overlay!;
+    } else {
+      overlayState = Overlay.of(_context!, rootOverlay: useRootOverlay);
+    }
+
+    overlayState.insert(_overlayEntry!);
   }
 
   /// Begin the intro for [group] (default is `default`). If the group has
